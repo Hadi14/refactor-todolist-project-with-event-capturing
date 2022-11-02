@@ -35,27 +35,58 @@ modalbtn.addEventListener('click', () => {
     newdiv.append(newclose);
     bodydiv.append(newdiv);
     newdiv.draggable = true;
-    newclose.addEventListener('click', () => {
-        newdiv.remove();
-    })
 
-    newdiv.addEventListener('dragstart', (event) => {
-        event.dataTransfer.setData("todoid", event.target.id);
-        // console.log(event.target.id);
-    })
+    // newclose.addEventListener('click', () => {
+    //     newdiv.remove();
+    // })
+
+    // newdiv.addEventListener('dragstart', (event) => {
+    //     event.dataTransfer.setData("todoid", event.target.id);
+    // })
 })
 
-statusbox.forEach(element => {
-    element.addEventListener('dragover', (event) => {
+// statusbox.forEach(element => {
+//     element.addEventListener('dragover', (event) => {
+//         event.preventDefault();
+// console.log("Drag Over");
+// })
+// element.addEventListener('drop', (event) => {
+//     element.append(document.getElementById(event.dataTransfer.getData('todoid')));
+// let tid = event.dataTransfer.getData('todoid');
+// let telem = document.getElementById(tid);
+// event.target.append(telem);
+// console.log(event);
+// element.append(telem);
+//     })
+// });
+
+
+
+const todoContainer = document.querySelector('.todo-container');
+todoContainer.addEventListener('click', (event) => {
+    if (event.target.className == 'close') {
+        event.target.parentElement.remove();
+        console.log("close")
+    }
+})
+
+
+
+todoContainer.addEventListener('dragstart', (event) => {
+    if (event.target.className == 'todo') {
+        event.dataTransfer.setData("todoid", event.target.id);
+    }
+})
+
+
+todoContainer.addEventListener('dragover', (event) => {
+    if (event.target.className == 'status') {
         event.preventDefault();
-        // console.log("Drag Over");
-    })
-    element.addEventListener('drop', (event) => {
-        element.append(document.getElementById(event.dataTransfer.getData('todoid')));
-        // let tid = event.dataTransfer.getData('todoid');
-        // let telem = document.getElementById(tid);
-        // event.target.append(telem);
-        // console.log(event);
-        // element.append(telem);
-    })
-});
+    }
+})
+
+todoContainer.addEventListener('drop', (event) => {
+    if (event.target.className == 'status') {
+        event.target.append(document.getElementById(event.dataTransfer.getData('todoid')));
+    }
+})
