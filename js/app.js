@@ -75,6 +75,7 @@ todoContainer.addEventListener('click', (event) => {
 todoContainer.addEventListener('dragstart', (event) => {
     if (event.target.className == 'todo') {
         event.dataTransfer.setData("todoid", event.target.id);
+
     }
 })
 
@@ -82,11 +83,13 @@ todoContainer.addEventListener('dragstart', (event) => {
 todoContainer.addEventListener('dragover', (event) => {
     if (event.target.className == 'status') {
         event.preventDefault();
+
     }
 })
 
 todoContainer.addEventListener('drop', (event) => {
     if (event.target.className == 'status') {
         event.target.append(document.getElementById(event.dataTransfer.getData('todoid')));
+        console.log(event.dataTransfer.getData('todoid'))
     }
 })
